@@ -1,7 +1,30 @@
-const ItemListContainer = ({ saludo}) => {
+import { useState, useEffect } from "react"
+import { getProducts } from "../data/data.js"
+import ItemList from "./ItemList.jsx"
+import "./itemlistcontainer.css"
+
+const ItemListContainer = ({ saludo }) => {
+  const [products, setProducts] = useState ([])
+
+  
+
+  useEffect(()=>{
+    getProducts()
+    .then((data)=> {
+      setProducts(data)
+    })
+    .catch((error)=>{
+      console.error(error)
+    })
+    .finally(()=> {
+      console.log("termino la promesa")
+    })
+  }, [])
+
   return (
-    <div>
+    <div className="itemlistcontainer">
         <h1>{ saludo }</h1>
+        <ItemList products= {products}/>
     </div>
   )
 }
