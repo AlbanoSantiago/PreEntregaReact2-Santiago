@@ -1,32 +1,23 @@
-import { useState, useEffect } from "react"
-import { getProducts } from "../data/data.js"
+import hoctFilterProducts from "../hoc/hoctFilterProducts.jsx"
 import ItemList from "./ItemList.jsx"
+import { useParams } from "react-router-dom"
 import "./itemlistcontainer.css"
 
-const ItemListContainer = ({ saludo }) => {
-  const [products, setProducts] = useState ([])
+const ItemListContainer = ({ saludo, products}) => {
+  const { idCategory } = useParams()
 
-  
-
-  useEffect(()=>{
-    getProducts()
-    .then((data)=> {
-      setProducts(data)
-    })
-    .catch((error)=>{
-      console.error(error)
-    })
-    .finally(()=> {
-      console.log("termino la promesa")
-    })
-  }, [])
+  const filterProducts = idCategory
+  ? products.filter(product => product.category === idCategory) : products
 
   return (
     <div className="itemlistcontainer">
-        <h1>{ saludo }</h1>
-        <ItemList products= {products}/>
-    </div>
-  )
+        <h1>{saludo}</h1>
+        <ItemList products={filterProducts} />
+    </div>  
+  ) 
 }
+//export default ItemListContainer
 
-export default ItemListContainer
+const ItemListContainerWithHoc = hoctFilterProducts(ItemListContainer)
+
+export default ItemListContainerWithHoc
