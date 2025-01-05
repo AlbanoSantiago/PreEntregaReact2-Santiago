@@ -20,6 +20,7 @@
         font-size: 3rem;
         font-weight: bold;
         color: rgb(4, 253, 4);
+        text-decoration: underline;
     }
         
        
@@ -36,4 +37,13 @@
        gap: 0.5rem;      
     }
 
+    .category{
+        color: rgb(4, 254, 4);
+        text-decoration: none;
+    }
+
+    .category-active{
+        color: rgb(0, 0, 0);
+        text-decoration: underline;
+    }
 }
